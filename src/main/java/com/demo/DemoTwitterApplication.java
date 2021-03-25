@@ -35,7 +35,6 @@ public class DemoTwitterApplication {
 	    	service.run();
 	    }
 	}	
-
 	
 //	@Bean
 //    public Docket api() {
