@@ -60,12 +60,12 @@ public class TwitterStreamService {
 			@Override
 			public void onScrubGeo(long userId, long upToStatusId) {
 				// TODO Auto-generated method stub
-				
+
 			}
 			@Override
 			public void onStallWarning(StallWarning warning) {
 				// TODO Auto-generated method stub
-				
+
 			}
 	    };
 		
@@ -73,7 +73,7 @@ public class TwitterStreamService {
 	    
 	    twitterStream.addListener(listener);
 	    twitterStream.sample();
-	    twitterStream.filter(new FilterQuery("*").language("es","fr","it").follow(1500l));
+	    twitterStream.filter(new FilterQuery("*", " ").language("es","fr","it").follow(1500l));
 	    
 	    Runtime.getRuntime().addShutdownHook(
 	            new Thread(() -> {
@@ -81,6 +81,5 @@ public class TwitterStreamService {
 	            }));
 	    
 	    running = Boolean.TRUE;
-	    
 	}
 }
