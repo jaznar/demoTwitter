@@ -1,0 +1,4 @@
+INSERT INTO tweets (id, user, text, location, validate) VALUES
+  (1, 'Aliko', 'Dangote', 'Billionaire Industrialist', false),
+  (2, 'Bill', 'Gates', 'Billionaire Tech Entrepreneur', false),
+  (3, 'Folrunsho', 'Alakija', 'Billionaire Oil Magnate', false);
