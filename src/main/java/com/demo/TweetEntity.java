@@ -16,36 +16,35 @@ import lombok.Setter;
 import lombok.ToString;
 import twitter4j.Status;
 
-
 @Entity
-@Table(name= "tweets")
+@Table(name = "tweets")
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TweetEntity implements Serializable{
-	
+public class TweetEntity implements Serializable {
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The id. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	/** The user. */
 	private String user;
-	
+
 	/** The text. */
 	private String text;
-	
+
 	/** The location. */
 	private String location;
-	
+
 	/** The validate. */
 	private boolean validate;
-	
+
 	/**
 	 * Value of.
 	 *
@@ -54,22 +53,23 @@ public class TweetEntity implements Serializable{
 	 */
 	public static TweetEntity valueOf(Status status) {
 		TweetEntity result = new TweetEntity();
-		
+
 		result.setId(status.getId());
-        result.setLocation(status.getUser().getLocation());
-        
+		result.setLocation(status.getUser().getLocation());
+
 		try {
 			result.setText(new String(status.getText().substring(0, 254).getBytes(StandardCharsets.UTF_8)));
-        } catch (Exception e) {
-        	result.setText(new String(status.getText().getBytes(StandardCharsets.UTF_8)));
-        }
-		
-        try {
-        	result.setUser(new String(status.getUserMentionEntities()[0].getScreenName().getBytes(StandardCharsets.UTF_8)));
-        } catch (Exception e) {
-        	result.setUser(new String(status.getUser().getName().getBytes(StandardCharsets.UTF_8)));
-        }
-        return result;
-		
+		} catch (Exception e) {
+			result.setText(new String(status.getText().getBytes(StandardCharsets.UTF_8)));
+		}
+
+		try {
+			result.setUser(
+					new String(status.getUserMentionEntities()[0].getScreenName().getBytes(StandardCharsets.UTF_8)));
+		} catch (Exception e) {
+			result.setUser(new String(status.getUser().getName().getBytes(StandardCharsets.UTF_8)));
+		}
+		return result;
+
 	}
 }

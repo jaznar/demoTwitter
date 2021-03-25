@@ -1,6 +1,5 @@
 package com.demo;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,37 +17,36 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 /**
  * The Class DemoTwitterApplication.
  */
 @SpringBootApplication
 @EnableSwagger2
 public class DemoTwitterApplication {
-	
+
 	/** The service. */
 	@Autowired
 	private TwitterStreamService service;
-	
+
 	/**
 	 * The main method.
 	 *
 	 * @param args the arguments
 	 */
-	public static void main(String[] args)  {
+	public static void main(String[] args) {
 		SpringApplication.run(DemoTwitterApplication.class, args);
 	}
-	
+
 	/**
 	 * Run Twitter Stream service after startup.
 	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void runTwitterStreamService() {
-	    if (service != null) {
-	    	service.run();
-	    }
-	}	
-	
+		if (service != null) {
+			service.run();
+		}
+	}
+
 //	@Bean
 //    public Docket api() {
 //		return new Docket(DocumentationType.SWAGGER_2)
@@ -60,20 +58,22 @@ public class DemoTwitterApplication {
 //	}
 
 	/**
- * Api.
- *
- * @return the docket
- */
-@Bean
+	 * Api.
+	 *
+	 * @return the docket
+	 */
+	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).pathMapping("/").select() // select those paths and api will generate document
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).pathMapping("/").select() // select those
+																									// paths and api
+																									// will generate
+																									// document
 				.apis(RequestHandlerSelectors.any()) // Monitor all APIs
 				// don't display wrong interface address
 				.paths(Predicates.not(PathSelectors.regex("/error.*")))// Error path is not monitored
 				.paths(PathSelectors.regex("/.*"))// Monitor all paths under the root
 				.build();
 	}
-
 
 	/**
 	 * Api info.

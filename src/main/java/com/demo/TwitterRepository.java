@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * The Interface TwitterRepository.
  */
-public interface TwitterRepository extends JpaRepository<TweetEntity, Long>{
-	
+public interface TwitterRepository extends JpaRepository<TweetEntity, Long> {
+
 	/**
 	 * Find all by user and validate.
 	 *
-	 * @param user the user
+	 * @param user     the user
 	 * @param validate the validate
 	 * @return the list
 	 */

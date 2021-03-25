@@ -18,25 +18,25 @@ import twitter4j.TwitterFactory;
  */
 @Service
 public class TwitterService {
-	
+
 	/** The stream feed. */
 	@Autowired
 	private TwitterStreamService streamFeed;
-	
+
 	/** The repo. */
 	@Autowired
 	private TwitterRepository repo;
-	
+
 	/**
 	 * Find all.
 	 *
 	 * @return the list
 	 */
-	public List<TweetEntity> findAll(){
+	public List<TweetEntity> findAll() {
 		streamFeed.run();
 		return repo.findAll();
 	}
-	
+
 	/**
 	 * Find all by user and validate.
 	 *
@@ -47,7 +47,7 @@ public class TwitterService {
 		streamFeed.run();
 		return repo.findAllByUserAndValidate(user, Boolean.TRUE);
 	}
-	
+
 	/**
 	 * Validate.
 	 *
@@ -62,10 +62,10 @@ public class TwitterService {
 			optionalTweet.get().setValidate(Boolean.TRUE);
 			repo.save(optionalTweet.get());
 			result = true;
-		} 
+		}
 		return result;
 	}
-	
+
 	/**
 	 * Top trending.
 	 *
@@ -73,12 +73,12 @@ public class TwitterService {
 	 * @return the list
 	 * @throws TwitterException the twitter exception
 	 */
-	public List<String> topTrending(String top) throws TwitterException{
+	public List<String> topTrending(String top) throws TwitterException {
 		int topHashtags = 10;
-		
-		try{
+
+		try {
 			topHashtags = Integer.valueOf(top);
-		} catch (Exception e){
+		} catch (Exception e) {
 			;
 		}
 
@@ -86,10 +86,8 @@ public class TwitterService {
 		Twitter twitter = tf.getInstance();
 		Trends trends = twitter.getPlaceTrends(1);
 
-		return  Arrays.stream(trends.getTrends())
-				.map(trend->trend.getName())
-				.limit(topHashtags)
+		return Arrays.stream(trends.getTrends()).map(trend -> trend.getName()).limit(topHashtags)
 				.collect(Collectors.toList());
-		
+
 	}
 }
