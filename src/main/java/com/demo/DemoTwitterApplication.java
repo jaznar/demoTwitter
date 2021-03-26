@@ -64,7 +64,7 @@ public class DemoTwitterApplication {
 	 */
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).pathMapping("/").select() // select those
+		return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false).apiInfo(apiInfo()).pathMapping("/").select() // select those
 																									// paths and api
 																									// will generate
 																									// document
@@ -72,6 +72,7 @@ public class DemoTwitterApplication {
 				// don't display wrong interface address
 				.paths(Predicates.not(PathSelectors.regex("/error.*")))// Error path is not monitored
 				.paths(PathSelectors.regex("/.*"))// Monitor all paths under the root
+				
 				.build();
 	}
 
