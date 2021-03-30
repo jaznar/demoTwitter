@@ -1,11 +1,8 @@
 package com.demo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
 
 import com.google.common.base.Predicates;
 
@@ -24,10 +21,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class DemoTwitterApplication {
 
-	/** The service. */
-	@Autowired
-	private TwitterStreamService service;
-
 	/**
 	 * The main method.
 	 *
@@ -37,15 +30,6 @@ public class DemoTwitterApplication {
 		SpringApplication.run(DemoTwitterApplication.class, args);
 	}
 
-	/**
-	 * Run Twitter Stream service after startup.
-	 */
-	@EventListener(ApplicationReadyEvent.class)
-	public void runTwitterStreamService() {
-		if (service != null) {
-			service.run();
-		}
-	}
 
 //	@Bean
 //    public Docket api() {
